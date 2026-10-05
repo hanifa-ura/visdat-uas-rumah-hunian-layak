@@ -1,0 +1,15 @@
+# Sesi R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Batas wilayah mentah 550 MB (melebihi batas 100 MB GitHub); aplikasi memakai data/kabkota_simplified.rds
+data/Indonesia_KAB_KOTA.geojson
+
+# Hasil deployment
+rsconnect/
+
+# Folder audit AI / anti-slop
+anti-slop/
+.positai
