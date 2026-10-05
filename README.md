@@ -1,10 +1,10 @@
 # Hunian Layak Indonesia
 
-Laman data-story interaktif tentang ketimpangan **kepemilikan rumah (Backlog 1)** dan **kelayakhunian rumah (Backlog 2)** di 38 provinsi dan 514 kabupaten/kota Indonesia, 2025–2026, serta kaitannya dengan indikator kesehatan. Dibangun dengan R Shiny, plotly, dan leaflet.
+Laman data-story interaktif tentang ketimpangan **kepemilikan rumah (Backlog 1)** dan **kelayakhunian rumah (Backlog 2)** di 38 provinsi dan 514 kabupaten/kota Indonesia, 2025–2026, serta kaitannya dengan indikator kesehatan. Dibangun dengan R Shiny.
 
 - **Aplikasi:** https://8uj79q-hanifa-aura.shinyapps.io/visdat-rumah-hunian-layak/
 - Proyek UAS Visualisasi Data dan Informasi (K203407), Program Studi Komputasi Statistik, Politeknik Statistika STIS, semester genap 2025/2026.
-- Penyusun: Aura Hanifa Kasetya Putri, 222313003, kelas 3SD2 (isi juga `AUTHOR` di `global.R` untuk footer aplikasi)
+- Penyusun: Aura Hanifa Kasetya Putri, 222313003, kelas 3SD2
 
 
 ## Pertanyaan yang dijawab
@@ -95,11 +95,10 @@ Berkas `Indonesia_KAB_KOTA.geojson` (550 MB) tidak disertakan karena melebihi ba
 Semua langkah ada di `src/data_prep.R` dan `src/analysis.R`; berkas sumber tidak diubah.
 
 1. **Format angka.** Berkas mencampur koma desimal (`97,88`), koma ribuan (`1,192.25`), dan penanda kosong (`NAN`, `–`, `#VALUE!`). Semuanya diseragamkan oleh `to_num()`. Berkas capaian memakai titik sebagai pemisah ribuan (`45.073` = 45.073 unit) dan dibaca oleh `to_num_id()`.
-2. **Kesesuaian dengan publikasi.** Berkas Excel versi awal memuat kesalahan: kolom Backlog 1 kab/kota bergeser 2–3 baris, jumlah Backlog 2 kab/kota tertukar antartahun (232 baris), jumlah Backlog 1 provinsi tertukar antartahun (25 baris), dan kolom listrik non-PLN tertukar dengan bukan listrik. Semua nilai perumahan di berkas kini sama dengan tabel *Statistik Perumahan 2026*, sehingga aplikasi tidak perlu lagi menukar kolom.
-3. **Total rumah tangga** dihitung dari jumlah dan persentase Backlog 2 (atau Backlog 1 bila Backlog 2 kosong), sama dengan rumus kolom `rt_*` di Excel.
-4. **Nilai kosong.** Sel yang tidak disajikan BPS (NA) pada atap asbes dan BABS dibaca 0; listrik non-PLN yang kosong diisi sisa 100 − PLN − bukan listrik. DBD kosong untuk Papua Barat Daya dan Papua Pegunungan diisi median hanya untuk klaster dan PCA. Semua sel itu ditandai × di heatmap berklaster. Kabupaten/kota tanpa nilai backlog (NA di tabel BPS) tidak diisi dan tampil abu-abu di peta.
-5. **TBC.** Kolom `tbc_cakupan_pct` adalah cakupan penemuan dan pengobatan kasus TBC (%), dengan nilai tinggi = lebih baik.
-6. **Penggabungan peta.** GeoJSON memakai kode Kemendagri, sedangkan data memakai kode BPS, sehingga penggabungan memakai kunci nama: provinsi | Kab/Kota | nama ternormalisasi. Provinsi Papua hasil pemekaran (kode 91–97) digabung menjadi satu grup karena GeoJSON masih memakai pembagian lama.
+2. **Total rumah tangga** dihitung dari jumlah dan persentase Backlog 2 (atau Backlog 1 bila Backlog 2 kosong), sama dengan rumus kolom `rt_*` di Excel.
+3. **Nilai kosong.** Sel yang tidak disajikan BPS (NA) pada atap asbes dan BABS dibaca 0; listrik non-PLN yang kosong diisi sisa 100 − PLN − bukan listrik. DBD kosong untuk Papua Barat Daya dan Papua Pegunungan diisi median hanya untuk klaster dan PCA. Semua sel itu ditandai × di heatmap berklaster. Kabupaten/kota tanpa nilai backlog (NA di tabel BPS) tidak diisi dan tampil abu-abu di peta.
+4. **TBC.** Kolom `tbc_cakupan_pct` adalah cakupan penemuan dan pengobatan kasus TBC (%), dengan nilai tinggi = lebih baik.
+5. **Penggabungan peta.** GeoJSON memakai kode Kemendagri, sedangkan data memakai kode BPS, sehingga penggabungan memakai kunci nama: provinsi | Kab/Kota | nama ternormalisasi. Provinsi Papua hasil pemekaran (kode 91–97) digabung menjadi satu grup karena GeoJSON masih memakai pembagian lama.
 
 ## Metode analisis
 
