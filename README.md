@@ -2,14 +2,10 @@
 
 Laman data-story interaktif tentang ketimpangan **kepemilikan rumah (Backlog 1)** dan **kelayakhunian rumah (Backlog 2)** di 38 provinsi dan 514 kabupaten/kota Indonesia, 2025–2026, serta kaitannya dengan indikator kesehatan. Dibangun dengan R Shiny, plotly, dan leaflet.
 
-- **Aplikasi:** [isi URL shinyapps.io]
-- **Makalah (IEEE):** [isi tautan PDF]
+- **Aplikasi:** https://8uj79q-hanifa-aura.shinyapps.io/visdat-rumah-hunian-layak/
 - Proyek UAS Visualisasi Data dan Informasi (K203407), Program Studi Komputasi Statistik, Politeknik Statistika STIS, semester genap 2025/2026.
-- Penyusun: [Nama], [NIM], kelas [3SDx] (isi juga `AUTHOR` di `global.R` untuk footer aplikasi)
+- Penyusun: Aura Hanifa Kasetya Putri, 222313003, kelas 3SD2 (isi juga `AUTHOR` di `global.R` untuk footer aplikasi)
 
-<!-- Tangkapan layar: simpan di docs/ lalu hapus tanda komentar di baris berikut.
-![Hero dan kartu angka nasional](docs/hero.png)
--->
 
 ## Pertanyaan yang dijawab
 
@@ -89,8 +85,8 @@ Data utama bersumber dari BPS. Data kesehatan dan batas wilayah adalah data pend
 Setiap berkas Excel memiliki sheet **Keterangan** berisi sumber tiap kolom. Angka disimpan sebagai bilangan; sel kosong berarti data tidak disajikan sumber. Kolom turunan (`diare_pct`, `rt_2025`, `rt_2026`, total 2025 capaian) berupa rumus Excel.
 
 Rujukan BPS:
-- Statistik Perumahan 2026: https://www.bps.go.id/id/publication/2026/08/31/777a9ca5c6cfd2a1d8626198/statistik-perumahan-2026.html, diakses [tanggal]
-- Berita "BPS rilis perdana Statistik Perumahan 2026": https://www.bps.go.id/id/news/2026/08/22/937/, diakses [tanggal]
+- Statistik Perumahan 2026: https://www.bps.go.id/id/publication/2026/08/31/777a9ca5c6cfd2a1d8626198/statistik-perumahan-2026.html, diakses 4 Oktober 2026
+- Berita "BPS rilis perdana Statistik Perumahan 2026": https://www.bps.go.id/id/news/2026/08/22/937/, diakses 4 Oktober 2026
 
 Berkas `Indonesia_KAB_KOTA.geojson` (550 MB) tidak disertakan karena melebihi batas 100 MB GitHub. Aplikasi hanya membutuhkan `kabkota_simplified.rds`. Bila `.rds` dihapus, aplikasi membuatnya ulang dari GeoJSON pada saat pertama dijalankan.
 
@@ -141,34 +137,6 @@ Semua langkah ada di `src/data_prep.R` dan `src/analysis.R`; berkas sumber tidak
 └── CATATAN-REVISI.md  # riwayat perbaikan logika dan visual
 ```
 
-## Menjalankan secara lokal
-
-Butuh R 4.x dan plotly ≥ 4.10.3 (untuk treemap dan icicle).
-
-```r
-install.packages(c("shiny", "readxl", "dplyr", "tidyr", "stringr", "plotly", "leaflet",
-                   "sf", "spdep", "ggdendro", "DT", "viridisLite", "htmlwidgets", "scales", "jsonlite"))
-shiny::runApp()
-```
-
-Jalankan dari folder akar repositori. Analisis LISA, klaster, dan PCA dihitung sekali saat aplikasi dimulai.
-
-## Deployment ke shinyapps.io
-
-```r
-install.packages("rsconnect")
-rsconnect::setAccountInfo(name = "<akun>", token = "<token>", secret = "<secret>")
-rsconnect::deployApp(
-  appName  = "hunian-layak",
-  appFiles = c("app.R", "global.R", list.files("src", full.names = TRUE),
-               list.files("www", full.names = TRUE),
-               "data/dataset(provinsi).xlsx", "data/backlog_kabkota.xlsx",
-               "data/capaian_pemerintah.xlsx", "data/program_dapat_dibandingkan.xlsx",
-               "data/kabkota_simplified.rds")
-)
-```
-
-`appFiles` sengaja tidak memuat GeoJSON 550 MB agar unggahan tidak gagal.
 
 ## Keterbatasan
 
@@ -178,12 +146,8 @@ rsconnect::deployApp(
 - Indikator kesehatan hanya tersedia di tingkat provinsi (n = 38), sehingga kekuatan uji terbatas.
 - Hasil LISA bergantung pada pilihan tetangga (k = 6) dan tidak dikoreksi untuk uji berganda.
 - Hanya lima program yang dapat dibandingkan pada periode setara; satu unit program tidak selalu sama dengan satu rumah tangga yang keluar dari backlog.
-- Angka kab/kota Susenas memiliki galat sampling (BPS Tabel 2.11–2.12) yang belum ditampilkan.
+- Angka kab/kota Susenas memiliki galat sampling yang disajikan pada publikasi BPS (BPS Tabel 2.11–2.12) yang belum ditampilkan.
 
 ## Deklarasi penggunaan AI
 
-Asisten AI (Claude, Anthropic) dipakai sebagai alat bantu untuk merancang ulang antarmuka, meninjau kode, mengaudit desain dengan aturan antislop, memeriksa konsistensi logika data, serta mencocokkan dan menyusun ulang berkas Excel dari tabel PDF BPS. Seluruh keputusan analisis, isi, dan hasil akhir menjadi tanggung jawab penyusun.
-
-## Lisensi
-
-Kode: [pilih lisensi, misalnya MIT]. Data milik BPS dan Kementerian Kesehatan; gunakan sesuai ketentuan masing-masing sumber.
+Asisten AI dipakai sebagai alat bantu untuk merancang ulang antarmuka, meninjau kode, mengaudit desain, memeriksa konsistensi logika data. Seluruh keputusan analisis, isi, dan hasil akhir menjadi tanggung jawab penyusun.
